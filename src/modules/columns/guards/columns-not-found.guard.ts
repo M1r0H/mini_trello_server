@@ -14,9 +14,9 @@ export class ColumnsNotFoundGuard extends BaseGuard<{ id: string }> {
       this.error('Invalid ID', HttpStatus.BAD_REQUEST);
     }
 
-    const video = await this.columnsService.one(id).catch(() => null);
+    const column = await this.columnsService.one(id).catch(() => null);
 
-    if (!video) {
+    if (!column) {
       this.error(`Column with ID ${id} not found`, HttpStatus.NOT_FOUND);
     }
 

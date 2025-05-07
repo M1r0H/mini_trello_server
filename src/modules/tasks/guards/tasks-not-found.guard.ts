@@ -14,9 +14,9 @@ export class TasksNotFoundGuard extends BaseGuard<{ id: string }> {
       this.error('Invalid ID', HttpStatus.BAD_REQUEST);
     }
 
-    const video = await this.tasksService.one(id).catch(() => null);
+    const task = await this.tasksService.one(id).catch(() => null);
 
-    if (!video) {
+    if (!task) {
       this.error(`Task with ID ${id} not found`, HttpStatus.NOT_FOUND);
     }
 

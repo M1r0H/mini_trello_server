@@ -12,7 +12,6 @@ import { Inject } from '@nestjs/common';
     credentials: true,
   },
 })
-
 export class WsGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer()
   public server: Server;
