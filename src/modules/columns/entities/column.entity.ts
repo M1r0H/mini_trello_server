@@ -3,13 +3,10 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  JoinColumn,
-  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Board } from '@modules/boards/entities/board.entity';
 import { Task } from '@modules/tasks/entities/task.entity';
 
 @Entity('columns')
@@ -22,9 +19,6 @@ export class Column {
 
   @ColumnType({ default: 0 })
   public order: number;
-
-  @ColumnType()
-  public boardId: string;
 
   @CreateDateColumn()
   public createdAt: Date;
@@ -41,12 +35,4 @@ export class Column {
     { onDelete: 'CASCADE' },
   )
   public tasks: Task[];
-
-  @ManyToOne(
-    () => Board,
-    ({ id }) => id,
-    { onDelete: 'CASCADE' },
-  )
-  @JoinColumn({ name: 'boardId' })
-  public board: Board;
 }

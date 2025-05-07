@@ -65,8 +65,7 @@ export class CreateTokenInterceptor implements NestInterceptor {
 
   private getAuthTokenString({ user, expiry, type }: GenerateTokenParams): string {
     return this.jwtService.sign({
-      id: user?.id,
-      email: user?.email,
+      user,
       type,
     },
     {

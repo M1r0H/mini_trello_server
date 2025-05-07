@@ -1,7 +1,7 @@
 import { RegisterRequest } from '@modules/auth/requests/register.request';
 import { ResponseInterface } from '@modules/auth/types/controller.types';
-import { Response } from 'express';
-import { Body, Controller, Get, HttpStatus, Post, Res, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Request, Response } from 'express';
+import { Body, Controller, Get, HttpStatus, Post, Req, Res, UseGuards, UseInterceptors } from '@nestjs/common';
 import { CreateToken } from '@modules/auth/decorators/auth-create-token.decorator';
 import { CreateTokenInterceptor } from '@modules/auth/interceptors/create-token.interceptor';
 import { LoginRequest } from '@modules/auth/requests/login.request';
@@ -10,6 +10,7 @@ import { TokenVariants } from '@modules/auth/constants';
 import { RefreshGuard } from '@modules/auth/guards/refresh.guard';
 import { RefreshTokenInterceptor } from '@modules/auth/interceptors/refresh-token.interceptor';
 import { UsersService } from '@modules/users/services/users.service';
+import { User } from '@modules/users/entities/user.entity';
 
 @UseInterceptors(CreateTokenInterceptor)
 @Controller('auth')
@@ -39,8 +40,11 @@ export class AuthController {
   }
 
   @Get('/')
-  public async check(): Promise<{ checked: boolean }> {
-    return { checked: true };
+  public check(@Req() req: Request): ResponseInterface {
+    return {
+      user: req.user as User ?? null,
+      checked: true,
+    };
   }
 
   @Get('/logout')

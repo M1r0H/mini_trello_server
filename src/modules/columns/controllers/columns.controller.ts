@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import { ColumnsNotFoundGuard } from '@modules/columns/guards/columns-not-found.guard';
 import { ColumnsService } from '@modules/columns/services/columns.service';
 import { Column } from '@modules/columns/entities/column.entity';
@@ -8,6 +8,11 @@ export class ColumnsController {
   public constructor(
     private readonly columnsService: ColumnsService,
   ) {}
+
+  @Get()
+  public index(): Promise<Column[]> {
+    return this.columnsService.all();
+  }
 
   @Post()
   public create(@Body() body: {

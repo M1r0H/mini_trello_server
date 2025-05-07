@@ -22,10 +22,6 @@ export class CreateColumns1715000002222 implements MigrationInterface {
           default: 0,
         },
         {
-          name: 'boardId',
-          type: 'uuid',
-        },
-        {
           name: 'createdAt',
           type: 'timestamp with time zone',
           default: 'now()',
@@ -39,14 +35,6 @@ export class CreateColumns1715000002222 implements MigrationInterface {
           name: 'deletedAt',
           type: 'timestamp with time zone',
           isNullable: true,
-        },
-      ],
-      foreignKeys: [
-        {
-          columnNames: ['boardId'],
-          referencedTableName: 'board',
-          referencedColumnNames: ['id'],
-          onDelete: 'CASCADE',
         },
       ],
     }));

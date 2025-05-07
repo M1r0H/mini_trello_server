@@ -3,7 +3,7 @@ import { TasksService } from '@modules/tasks/services/tasks.service';
 import { Task } from '@modules/tasks/entities/task.entity';
 import { TasksNotFoundGuard } from '@modules/tasks/guards/tasks-not-found.guard';
 
-@Controller('tasks')
+@Controller('tasks/common')
 export class TasksController {
   public constructor(
     private readonly tasksService: TasksService,

@@ -1,9 +1,9 @@
 import { OnGatewayConnection, OnGatewayDisconnect, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
-import { Board } from '@modules/boards/entities/board.entity';
 import { Column } from '@modules/columns/entities/column.entity';
 import { Task } from '@modules/tasks/entities/task.entity';
 import { LoggerService } from '@core/services/logger.service';
+import { Inject } from '@nestjs/common';
 
 @WebSocketGateway({
   namespace: '/ws',
@@ -12,31 +12,20 @@ import { LoggerService } from '@core/services/logger.service';
     credentials: true,
   },
 })
+
 export class WsGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer()
   public server: Server;
 
+  @Inject(LoggerService)
   private readonly logger: LoggerService;
 
   public handleConnection(client: Socket): void {
-    this.logger.log(`🟢 WS connected: ${client.id}`, 'WsGateway');
+    this.logger.log(`WS connected: ${client.id}`, 'WsGateway');
   }
 
   public handleDisconnect(client: Socket): void {
-    this.logger.log(`🔴 WS disconnected: ${client.id}`, 'WsGateway');
-  }
-
-  // boards
-  public emitBoardCreated(board: Board): void {
-    this.server.emit('boardCreated', board);
-  }
-
-  public emitBoardUpdated(board: Board): void {
-    this.server.emit('boardUpdated', board);
-  }
-
-  public emitBoardDeleted(boardId: string): void {
-    this.server.emit('boardDeleted', boardId);
+    this.logger.log(`WS disconnected: ${client.id}`, 'WsGateway');
   }
 
   // columns
@@ -59,6 +48,10 @@ export class WsGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   public emitTaskUpdated(task: Task): void {
     this.server.emit('taskUpdated', task);
+  }
+
+  public emitTaskBatchUpdated(task: Task[]): void {
+    this.server.emit('taskBatchUpdated', task);
   }
 
   public emitTaskDeleted(taskId: string): void {

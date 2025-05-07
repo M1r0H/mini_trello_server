@@ -9,3 +9,9 @@ export interface TaskEditParams {
   id: string;
   body: Partial<TaskCreateParams>;
 }
+
+export interface TaskUpdateBatchParams {
+  id: string;
+  columnId: string;
+  order: number;
+}

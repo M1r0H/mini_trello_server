@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from '@modules/auth/auth.module';
 import { UsersModule } from '@modules/users/users.module';
-import { BoardsModule } from '@modules/boards/boards.module';
 import { TasksModule } from '@modules/tasks/tasks.module';
 import { WsModule } from '@modules/ws/ws.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -15,6 +14,7 @@ import { StripSensitiveFieldsInterceptor } from '@core/interseptors/strip-sensit
 import { JwtModule } from '@nestjs/jwt';
 import { LoggerModule } from '@core/modules/logger.module';
 import { typeOrmAsyncConfig } from '@config/typeorm.config';
+import { ColumnsModule } from '@modules/columns/columns.module';
 
 @Module({
   imports: [
@@ -47,7 +47,7 @@ import { typeOrmAsyncConfig } from '@config/typeorm.config';
     // Additional modules
     AuthModule,
     UsersModule,
-    BoardsModule,
+    ColumnsModule,
     TasksModule,
     WsModule,
   ],

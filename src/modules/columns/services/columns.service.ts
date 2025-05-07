@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Column } from '@modules/columns/entities/column.entity';
@@ -10,7 +10,20 @@ export class ColumnsService {
   @InjectRepository(Column)
   private readonly columnRepository: Repository<Column>;
 
+  @Inject(WsGateway)
   private readonly wsGateway: WsGateway;
+
+  public all(): Promise<Column[]> {
+    return this.columnRepository.find({
+      relations: ['tasks'],
+      order: {
+        order: 'ASC',
+        tasks: {
+          order: 'ASC',
+        },
+      },
+    });
+  }
 
   public async one(id: string): Promise<Column | null> {
     return this.columnRepository.findOne({

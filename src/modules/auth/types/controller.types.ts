@@ -9,5 +9,5 @@ export interface GenerateTokenParams {
 
 export interface ResponseInterface {
   user: User | null;
-  token?: string;
+  checked?: boolean;
 }
