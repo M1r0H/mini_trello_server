@@ -1,4 +1,4 @@
-FROM node:20
+FROM node:23
 
 WORKDIR /app
 
@@ -9,7 +9,5 @@ RUN npm install
 COPY . .
 
 RUN npm run build
-
-EXPOSE 3001
 
 CMD ["node", "dist/main"]
