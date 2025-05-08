@@ -6,7 +6,6 @@ import { LoggerService } from '@core/services/logger.service';
 import { Inject } from '@nestjs/common';
 
 @WebSocketGateway({
-  namespace: '/ws',
   cors: {
     origin: '*',
     credentials: true,
